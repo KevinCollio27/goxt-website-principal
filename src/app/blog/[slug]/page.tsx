@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import ShareButtons from "@/components/blog-share-buttons";
+import ShareButtons from "@/components/sections/blog-share-buttons";
 
 const BLOG_API =
   "https://api-crm.goxt.io/api/blog-widget/blg_seENlOEbs58BmiwmIvQBujpz/posts";
