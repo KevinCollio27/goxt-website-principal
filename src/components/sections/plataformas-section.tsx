@@ -21,7 +21,7 @@ type Plataforma = {
 const plataformas: Plataforma[] = [
   {
     badge: "CRM",
-    name: "GOxT CRM",
+    name: "GOXT CRM",
     description: "Gestión comercial desde el primer contacto hasta el cierre.",
     features: [
       "Pipeline visual Kanban",
@@ -83,7 +83,7 @@ export default function PlataformasSection() {
             Plataformas
           </Badge>
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight">
-            Accede a tu ecosistema GOxT.
+            Accede a tu ecosistema GOXT.
           </h2>
           <p className="text-muted-foreground max-w-xl">
             CRM, logística e inteligencia de negocio — todo conectado.

@@ -10,8 +10,47 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "GOXT",
-  description: "Tecnología operacional para empresas chilenas",
+  title: {
+    default: "GOxT — Tecnología para operaciones que escalan",
+    template: "%s | GOxT",
+  },
+  description:
+    "CRM, logística e inteligencia de negocio para empresas chilenas. Gestiona clientes, flota y operaciones desde un solo lugar. Implementación en días, no meses.",
+  keywords: ["CRM", "TMS", "logística", "software operacional", "Chile", "GOxT", "transportes", "gestión comercial"],
+  authors: [{ name: "GOxT SpA" }],
+  creator: "GOxT SpA",
+  metadataBase: new URL("https://goxt.io"),
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    url: "https://goxt.io",
+    siteName: "GOxT",
+    title: "GOxT — Tecnología para operaciones que escalan",
+    description:
+      "CRM, logística e inteligencia de negocio para empresas chilenas. Menos caos, más control.",
+    images: [
+      {
+        url: "/assets/logo_goxt_blanco.png",
+        width: 1200,
+        height: 630,
+        alt: "GOxT",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GOxT — Tecnología para operaciones que escalan",
+    description: "CRM, logística e inteligencia de negocio para empresas chilenas.",
+    images: ["/assets/logo_goxt_blanco.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default function RootLayout({
