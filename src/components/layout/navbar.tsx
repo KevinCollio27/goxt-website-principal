@@ -178,6 +178,12 @@ export default function Navbar() {
         {/* CTA + Mobile Menu */}
         <div className="flex gap-3 items-center">
           <ThemeToggle />
+          <a
+            href="/plataformas"
+            className="hidden lg:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Iniciar Sesión
+          </a>
           <DemoButton className="hidden lg:flex" />
 
           <div className="lg:hidden">
@@ -239,6 +245,12 @@ export default function Navbar() {
                       </NavigationMenuList>
                     </NavigationMenu>
                     <DemoButton />
+                    <a
+                      href="/plataformas"
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Iniciar Sesión
+                    </a>
                   </div>
                   <p className="text-sm text-muted-foreground mt-auto">
                     © 2026 GOxT

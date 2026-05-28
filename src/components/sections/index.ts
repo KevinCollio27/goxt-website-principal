@@ -19,6 +19,7 @@ export { default as BlogHeader } from "./blog-header";
 export { default as BlogGrid } from "./blog-grid";
 export { default as Testimonials } from "./testimonials";
 export { default as PricingSection } from "./pricing-section";
+export { default as PlataformasSection } from "./plataformas-section";
 export { default as FormacionSection } from "./formacion-section";
 export { default as CTASection } from "./cta-section";
 export { default as ContactSection } from "./contact-section";
