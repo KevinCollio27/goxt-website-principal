@@ -79,7 +79,7 @@ export default function FeaturesSection() {
                 </ul>
                 <div className="flex items-center gap-3">
                   <Button asChild className="relative text-sm font-medium rounded-full h-10 p-1 ps-5 pe-11 group transition-all duration-500 hover:ps-11 hover:pe-5 w-fit overflow-hidden cursor-pointer">
-                    <a href="https://calendar.app.google/1nbeEzv7YSstAzQL8" target="_blank" rel="noopener noreferrer">
+                    <a href="/demo?product=GOXT+CRM">
                       <span className="relative z-10 transition-all duration-500">Solicitar Demo</span>
                       <span className="absolute right-1 w-8 h-8 bg-background text-foreground rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-36px)] group-hover:rotate-45">
                         <ArrowUpRight size={14} />
@@ -125,7 +125,7 @@ export default function FeaturesSection() {
                 </ul>
                 <div className="flex items-center gap-3">
                   <Button asChild className="relative text-sm font-medium rounded-full h-10 p-1 ps-5 pe-11 group transition-all duration-500 hover:ps-11 hover:pe-5 w-fit overflow-hidden cursor-pointer">
-                    <a href="https://calendar.app.google/1nbeEzv7YSstAzQL8" target="_blank" rel="noopener noreferrer">
+                    <a href="/demo?product=TMS+Cargo">
                       <span className="relative z-10 transition-all duration-500">Solicitar Demo</span>
                       <span className="absolute right-1 w-8 h-8 bg-background text-foreground rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-36px)] group-hover:rotate-45">
                         <ArrowUpRight size={14} />
@@ -170,7 +170,7 @@ export default function FeaturesSection() {
                 </ul>
                 <div className="flex items-center gap-3">
                   <Button asChild className="relative text-sm font-medium rounded-full h-10 p-1 ps-5 pe-11 group transition-all duration-500 hover:ps-11 hover:pe-5 w-fit overflow-hidden cursor-pointer">
-                    <a href="https://calendar.app.google/1nbeEzv7YSstAzQL8" target="_blank" rel="noopener noreferrer">
+                    <a href="/demo?product=GONetwork">
                       <span className="relative z-10 transition-all duration-500">Solicitar Demo</span>
                       <span className="absolute right-1 w-8 h-8 bg-background text-foreground rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-36px)] group-hover:rotate-45">
                         <ArrowUpRight size={14} />
@@ -215,7 +215,7 @@ export default function FeaturesSection() {
                 </ul>
                 <div className="flex items-center gap-3">
                   <Button asChild className="relative text-sm font-medium rounded-full h-10 p-1 ps-5 pe-11 group transition-all duration-500 hover:ps-11 hover:pe-5 w-fit overflow-hidden cursor-pointer">
-                    <a href="https://calendar.app.google/1nbeEzv7YSstAzQL8" target="_blank" rel="noopener noreferrer">
+                    <a href="/demo?product=GOXT+BI">
                       <span className="relative z-10 transition-all duration-500">Solicitar Demo</span>
                       <span className="absolute right-1 w-8 h-8 bg-background text-foreground rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-36px)] group-hover:rotate-45">
                         <ArrowUpRight size={14} />

@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,10 +10,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const DEMO_URL = "https://calendar.app.google/1nbeEzv7YSstAzQL8";
 
 const solutions = [
   {
@@ -21,7 +21,7 @@ const solutions = [
     description:
       "¿Sigues perdiendo ventas porque nadie da seguimiento a tiempo? Pipeline visual, cotizaciones en minutos y seguimiento automático desde el primer contacto.",
     cta: "Solicitar Demo",
-    href: DEMO_URL,
+    href: "/demo?product=GOXT+CRM",
     image: "/assets/features/CRM.jpg",
     alt: "GOxT CRM",
   },
@@ -31,7 +31,7 @@ const solutions = [
     description:
       "¿No sabes dónde está tu carga ni en qué estado va cada despacho? Tracking en tiempo real, documentos digitales y alertas automáticas sin llamadas.",
     cta: "Solicitar Demo",
-    href: DEMO_URL,
+    href: "/demo?product=TMS+Cargo",
     image: "/assets/features/Cargo.jpg",
     alt: "GOxT Cargo",
   },
@@ -41,7 +41,7 @@ const solutions = [
     description:
       "¿Tus clientes te llaman para saber el estado de su pedido? Comparte trazabilidad en tiempo real sin correos ni llamadas de seguimiento.",
     cta: "Solicitar Demo",
-    href: DEMO_URL,
+    href: "/demo?product=GONetwork",
     image: "/assets/features/Network.jpg",
     alt: "GOxT Network",
   },
@@ -51,7 +51,7 @@ const solutions = [
     description:
       "¿Tomas decisiones sin datos concretos? Dashboards automáticos con los KPIs que importan — ventas, logística y operaciones en un solo panel.",
     cta: "Solicitar Demo",
-    href: DEMO_URL,
+    href: "/demo?product=GOXT+BI",
     image: "/assets/features/BI.jpg",
     alt: "GOxT BI",
   },
@@ -59,6 +59,7 @@ const solutions = [
 
 export default function SolutionsAccordion() {
   const [activeId, setActiveId] = useState<string>("crm");
+  const router = useRouter();
 
   return (
     <section className="py-16 md:py-24">
@@ -115,10 +116,9 @@ export default function SolutionsAccordion() {
                         <p className="text-base text-muted-foreground leading-relaxed">
                           {solution.description}
                         </p>
-                        <button
-                          type="button"
-                          onClick={() => window.open(solution.href, "_blank")}
-                          className="relative inline-flex items-center text-sm font-medium rounded-full h-10 p-1 ps-5 pe-11 group transition-all duration-500 hover:ps-11 hover:pe-5 w-fit overflow-hidden cursor-pointer bg-primary text-primary-foreground"
+                        <Button
+                          onClick={() => router.push(solution.href)}
+                          className="relative text-sm font-medium rounded-full h-10 p-1 ps-5 pe-11 group transition-all duration-500 hover:ps-11 hover:pe-5 w-fit overflow-hidden cursor-pointer"
                         >
                           <span className="relative z-10 transition-all duration-500">
                             {solution.cta}
@@ -126,7 +126,7 @@ export default function SolutionsAccordion() {
                           <span className="absolute right-1 w-8 h-8 bg-background text-foreground rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-36px)] group-hover:rotate-45">
                             <ArrowUpRight size={14} />
                           </span>
-                        </button>
+                        </Button>
 
                         {/* Imagen visible solo en mobile */}
                         <div className="mt-2 md:hidden relative h-56 rounded-xl overflow-hidden border border-border shadow-sm">

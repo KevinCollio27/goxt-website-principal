@@ -30,7 +30,7 @@ const navItems = [
   { title: "Contacto", href: "/contacto" },
 ];
 
-const DEMO_URL = "https://calendar.app.google/1nbeEzv7YSstAzQL8";
+const DEMO_URL = "/demo";
 
 const DemoButton = ({ className }: { className?: string }) => (
   <Button
@@ -40,7 +40,7 @@ const DemoButton = ({ className }: { className?: string }) => (
       className
     )}
   >
-    <a href={DEMO_URL} target="_blank" rel="noopener noreferrer">
+    <a href={DEMO_URL}>
       <span className="relative z-10 transition-all duration-500">
         Solicitar Demo
       </span>

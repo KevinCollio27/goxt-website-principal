@@ -6,8 +6,6 @@ import { Button } from '@/components/ui/button'
 import { FileSpreadsheet, Truck, Bot, Rocket, ArrowUpRight } from 'lucide-react'
 import { ReactNode } from 'react'
 
-const DEMO_URL = "https://calendar.app.google/1nbeEzv7YSstAzQL8";
-
 const challenges = [
   {
     badge: "CRM",
@@ -15,6 +13,7 @@ const challenges = [
     title: "Pierdo tiempo en procesos manuales",
     description: "Excel, WhatsApp, correos y desorden operativo. Tu equipo gasta horas en tareas que deberían tardar minutos.",
     cta: "Quiero ordenarme",
+    href: "/demo?product=GOXT+CRM",
   },
   {
     badge: "Cargo",
@@ -22,6 +21,7 @@ const challenges = [
     title: "Necesito controlar mi operación logística",
     description: "Falta trazabilidad, seguimiento y control en tiempo real. No sabes dónde está tu carga ni en qué estado va cada despacho.",
     cta: "Controlar mi flota",
+    href: "/demo?product=TMS+Cargo",
   },
   {
     badge: "BI",
@@ -29,6 +29,7 @@ const challenges = [
     title: "Quiero implementar IA en mi negocio",
     description: "La IA parece compleja pero puede ayudarte desde hoy. Automatiza tareas, mejora decisiones y gana ventaja.",
     cta: "Mejorar decisiones",
+    href: "/demo?product=GOXT+BI",
   },
   {
     badge: "Power Skills",
@@ -36,6 +37,7 @@ const challenges = [
     title: "Tengo un proyecto y quiero escalar",
     description: "Tienes una idea o emprendimiento que necesita crecer. La tecnología correcta marca la diferencia.",
     cta: "Quiero crecer",
+    href: "/postulacion",
   },
 ]
 
@@ -69,7 +71,7 @@ export default function PainPoints() {
               </CardHeader>
               <CardContent className="flex flex-col items-center gap-4 flex-1">
                 <p className="text-sm text-foreground/60 flex-1">{challenge.description}</p>
-                <a href={DEMO_URL} target="_blank" rel="noopener noreferrer">
+                <a href={challenge.href}>
                   <Button
                     size="sm"
                     className="relative text-sm font-medium rounded-full h-9 p-1 ps-4 pe-11 group/btn transition-all duration-500 hover:ps-11 hover:pe-4 w-fit overflow-hidden cursor-pointer"

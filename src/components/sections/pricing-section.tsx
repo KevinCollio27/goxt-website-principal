@@ -8,11 +8,10 @@ import { cn } from "@/lib/utils";
 import { Check, Flame } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 
-const DEMO_URL = "https://calendar.app.google/1nbeEzv7YSstAzQL8";
-
 type Plan = {
   badge: string;
   name: string;
+  service: string;
   description: string;
   features: string[];
   featured: boolean;
@@ -23,6 +22,7 @@ const plans: Plan[] = [
   {
     badge: "Implementación",
     name: "Setup Inicial",
+    service: "Setup Inicial",
     description: "Configuramos tu entorno de trabajo desde cero para que tu equipo opere desde el día uno.",
     features: [
       "Configuración del espacio de trabajo",
@@ -37,6 +37,7 @@ const plans: Plan[] = [
   {
     badge: "Más Solicitado",
     name: "Plataformas",
+    service: "Plataformas",
     description: "Accede a las herramientas que tu operación necesita. Fee mensual por usuario, según el producto que uses.",
     features: [
       "CRM para gestión comercial",
@@ -51,6 +52,7 @@ const plans: Plan[] = [
   {
     badge: "Desarrollo",
     name: "Desarrollo",
+    service: "Desarrollo",
     description: "Construimos o adaptamos soluciones tecnológicas específicas para los desafíos de tu operación.",
     features: [
       "Diagnóstico técnico previo",
@@ -158,7 +160,7 @@ export default function PricingSection() {
                       </li>
                     ))}
                   </ul>
-                  <a href={DEMO_URL} target="_blank" rel="noopener noreferrer">
+                  <a href={`/diagnostico?service=${encodeURIComponent(plan.service)}`}>
                     <Button
                       className="w-full h-10 cursor-pointer"
                       variant={plan.featured || plan.highlighted ? "default" : "outline"}

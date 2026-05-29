@@ -8,12 +8,11 @@ import { Check, Flame } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 
-const DEMO_URL = "https://calendar.app.google/1nbeEzv7YSstAzQL8";
-
 const plans = [
   {
     badge: "El Más Consultado",
     name: "Power Skills",
+    service: "Power Skills",
     description: "Programas de formación, bootcamps y talleres para que tu equipo adopte tecnología con criterio.",
     features: [
       "Bootcamps intensivos",
@@ -27,6 +26,7 @@ const plans = [
   {
     badge: "Acompañamiento",
     name: "Mentoría & Incubación",
+    service: "Mentoría",
     description: "Acompañamos el escalamiento de tu proyecto con mentoría estratégica y soporte en cada etapa.",
     features: [
       "Sesiones de mentoría recurrentes",
@@ -125,7 +125,7 @@ export default function FormacionSection() {
                       </li>
                     ))}
                   </ul>
-                  <a href={DEMO_URL} target="_blank" rel="noopener noreferrer">
+                  <a href={`/diagnostico?service=${encodeURIComponent(plan.service)}`}>
                     <Button
                       className="w-full h-10 cursor-pointer"
                       variant={plan.featured ? "default" : "outline"}

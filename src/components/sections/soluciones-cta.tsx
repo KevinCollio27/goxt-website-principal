@@ -31,7 +31,7 @@ export default function SoluccionesCTA() {
                   de tu operación.
                 </p>
               </div>
-              <a href="https://calendar.app.google/1nbeEzv7YSstAzQL8" target="_blank" rel="noopener noreferrer">
+              <a href="/demo">
                 <Button className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer">
                   <span className="relative z-10 transition-all duration-500">
                     Solicitar Demo

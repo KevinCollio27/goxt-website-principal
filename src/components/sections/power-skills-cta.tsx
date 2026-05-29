@@ -30,7 +30,7 @@ export default function PowerSkillsCTA() {
                   El primer paso es postular. Sin burocracia, sin compromiso.
                 </p>
               </div>
-              <a href="#">
+              <a href="/postulacion">
                 <Button className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden cursor-pointer">
                   <span className="relative z-10 transition-all duration-500">
                     Postula ahora
