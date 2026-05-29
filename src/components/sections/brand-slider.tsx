@@ -7,7 +7,7 @@ const clients = [
   { src: "/assets/clientes/Copec.svg", name: "Copec" },
   { src: "/assets/clientes/SigdoKopers.svg", name: "Sigdo Kopers" },
   { src: "/assets/clientes/logo-err.svg", name: "ERR Trans" },
-  { src: "/assets/clientes/Logotipo-Maule-Costa.svg", name: "SLEP Maule Costa" },
+  //{ src: "/assets/clientes/Logotipo-Maule-Costa.svg", name: "SLEP Maule Costa" },
   { src: "/assets/clientes/logo-andinos.svg", name: "Andinos" },
   { src: "/assets/clientes/SouthConnect.svg", name: "SouthConnect" },
   { src: "/assets/clientes/CamionGO.png", name: "CamionGO" },
@@ -30,7 +30,7 @@ export default function BrandSlider() {
               <div className="flex items-center justify-center gap-4">
                 <div className="hidden md:block h-0.5 w-40 bg-linear-to-l from-muted-foreground to-white dark:from-muted-foreground dark:to-transparent opacity-20" />
                 <p className="text-sm font-normal sm:px-2 px-10 text-muted-foreground text-center">
-                  Nuestros clientes confían en GOxT
+                  Confían en GOxT
                 </p>
                 <div className="hidden md:block h-0.5 w-40 bg-linear-to-r from-muted-foreground to-white dark:from-muted-foreground dark:to-transparent opacity-20" />
               </div>

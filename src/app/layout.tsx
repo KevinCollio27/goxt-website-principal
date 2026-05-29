@@ -53,6 +53,17 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "GOxT",
+  url: "https://goxt.io",
+  logo: "https://goxt.io/assets/logo_goxt_blanco.png",
+  description: "CRM, logística e inteligencia de negocio para empresas de Latinoamérica.",
+  email: "contacto@goxt.io",
+  areaServed: ["Chile", "Latinoamérica"],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -61,6 +72,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

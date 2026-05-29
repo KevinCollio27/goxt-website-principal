@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/navbar";
 import { PowerSkillsSection, PowerSkillsStats, PowerSkillsPillars, PowerSkillsProcess, PowerSkillsModalidades, PowerSkillsDemoDay, PowerSkillsEcosistemaStats, PowerSkillsEcosistema, PowerSkillsBrandSlider, PowerSkillsCTA, Footer } from "@/components/sections";
 
-export const metadata = {
-  title: "Power Skills | GOXT",
-  description: "Programa de innovación y emprendimiento aplicado. Aprende haciendo, resuelve problemas reales y conéctate con el ecosistema que importa.",
+export const metadata: Metadata = {
+  title: "Power Skills 2026",
+  description: "Aprende haciendo, resuelve problemas reales y conéctate con el ecosistema que importa. Postulaciones abiertas 2026.",
+  openGraph: {
+    title: "Power Skills 2026 | GOxT",
+    description: "Aprende haciendo, resuelve problemas reales y conéctate con el ecosistema que importa. Postulaciones abiertas 2026.",
+    url: "https://goxt.io/skills",
+  },
 };
 
 export default function SkillsPage() {

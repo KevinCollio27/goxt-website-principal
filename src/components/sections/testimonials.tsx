@@ -24,6 +24,14 @@ const testimonials: Testimonial[] = [
         logoSrc: "/assets/clientes/CamionGO.png",
         logoAlt: "CamionGO",
     },
+    {
+        quote: "Teníamos la operación dispersa entre correos, llamadas y documentos sueltos. Hoy gestionamos requerimientos, servicios y finanzas desde una sola plataforma. El cambio fue inmediato.",
+        author: "Miguel Astargo",
+        role: "Jefe de Operaciones · Sigdo Koppers",
+        image: "/assets/testimonios/Miguel Astargo.png",
+        logoSrc: "/assets/clientes/SigdoKopers.svg",
+        logoAlt: "Sigdo Koppers",
+    },
 ];
 
 export default function Testimonials() {

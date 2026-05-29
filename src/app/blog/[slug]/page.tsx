@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/navbar";
 import { Footer } from "@/components/sections";
 import { Badge } from "@/components/ui/badge";
@@ -35,11 +36,37 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return { title: "Post no encontrado | GOXT" };
-  return { title: `${post.title} | GOXT` };
+
+  if (!post) return { title: "Post no encontrado" };
+
+  const description = post.content
+    ? post.content.replace(/<[^>]*>/g, "").slice(0, 160).trim()
+    : (post.tags ?? "");
+
+  return {
+    title: post.title,
+    description,
+    openGraph: {
+      title: post.title,
+      description,
+      url: `https://goxt.io/blog/${slug}`,
+      type: "article",
+      publishedTime: post.published_at,
+      authors: post.author?.name ? [post.author.name] : undefined,
+      images: post.thumbnail_url
+        ? [{ url: post.thumbnail_url, alt: post.title }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: post.thumbnail_url ? [post.thumbnail_url] : undefined,
+    },
+  };
 }
 
 function formatDate(dateString: string) {
@@ -63,8 +90,41 @@ export default async function BlogPostPage({
     ? post.tags.split(",").map((t) => t.trim()).filter(Boolean)
     : [];
 
+  const description = post.content
+    ? post.content.replace(/<[^>]*>/g, "").slice(0, 160).trim()
+    : (post.tags ?? "");
+
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description,
+    image: post.thumbnail_url || undefined,
+    datePublished: post.published_at,
+    author: {
+      "@type": "Person",
+      name: post.author?.name ?? "GOxT",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "GOxT",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://goxt.io/assets/logo_goxt_blanco.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://goxt.io/blog/${slug}`,
+    },
+  };
+
   return (
     <div className="relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
+      />
       <Navbar />
       <main>
 

@@ -1,0 +1,19 @@
+# GOxT
+
+GOxT es una plataforma SaaS chilena que ofrece CRM, TMS logístico e inteligencia de negocio para empresas de Latinoamérica.
+
+## Productos
+- GOxT CRM: gestión comercial, pipeline, cotizaciones y agente IA
+- TMS GONetwork: red colaborativa para transportistas y generadores de carga
+- TMS Cargo: software evolitivo de Network, busca conectar transportistas con generadores de carga en todo el mundo.
+- GOxT BI: dashboards e inteligencia de negocio (próximamente)
+
+## Servicios
+- Setup Inicial: implementación y parametrización
+- Desarrollo: integraciones y módulos a medida
+- Power Skills: programa de innovación y emprendimiento
+
+## Contacto
+- Web: https://goxt.io
+- Email: contacto@goxt.io
+- Mercado: Chile y Latinoamérica
