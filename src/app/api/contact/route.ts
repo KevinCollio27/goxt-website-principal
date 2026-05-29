@@ -168,9 +168,7 @@ export async function POST(req: NextRequest) {
     // Create person (with org link + email/phone labels)
     const personId = await createPerson(name, email, phone, orgId);
 
-    // Create opportunity
-    const oppName = company ? `${name} - ${company}` : name;
-    await createOpportunity(personId, orgId, oppName, message);
+    await createOpportunity(personId, orgId, `Contacto: ${name}`, message);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
