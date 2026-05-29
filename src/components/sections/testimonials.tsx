@@ -13,6 +13,8 @@ interface Testimonial {
     image: string;
     logoSrc: string;
     logoAlt: string;
+    logoDark?: string;
+    logoDarkClass?: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -23,6 +25,7 @@ const testimonials: Testimonial[] = [
         image: "/assets/testimonios/Rodrigo.png",
         logoSrc: "/assets/clientes/CamionGO.png",
         logoAlt: "CamionGO",
+        logoDark: "/assets/clientes/CamionGO White.png",
     },
     {
         quote: "Teníamos la operación dispersa entre correos, llamadas y documentos sueltos. Hoy gestionamos requerimientos, servicios y finanzas desde una sola plataforma. El cambio fue inmediato.",
@@ -31,6 +34,7 @@ const testimonials: Testimonial[] = [
         image: "/assets/testimonios/Miguel Astargo.png",
         logoSrc: "/assets/clientes/SigdoKopers.svg",
         logoAlt: "Sigdo Koppers",
+        logoDarkClass: "dark:brightness-0 dark:invert",
     },
 ];
 
@@ -95,9 +99,19 @@ export default function Testimonials() {
                                                         alt={t.logoAlt}
                                                         width={120}
                                                         height={40}
-                                                        className="object-contain"
+                                                        className={`object-contain ${t.logoDark ? "dark:hidden" : ""} ${t.logoDarkClass ?? ""}`}
                                                         style={{ width: "120px", height: "40px" }}
                                                     />
+                                                    {t.logoDark && (
+                                                        <Image
+                                                            src={t.logoDark}
+                                                            alt={t.logoAlt}
+                                                            width={120}
+                                                            height={40}
+                                                            className="object-contain hidden dark:block"
+                                                            style={{ width: "120px", height: "40px" }}
+                                                        />
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
