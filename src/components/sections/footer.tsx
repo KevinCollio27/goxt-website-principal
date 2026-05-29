@@ -68,7 +68,7 @@ const Footer = () => {
 
             {/* Logo + tagline + redes */}
             <div className="col-span-full lg:col-span-4">
-              <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+              <div className="flex flex-col gap-6 ">
                 <a href="#" className="relative block w-30">
                   <Image
                     src="/assets/logo_goxt.png"
@@ -112,7 +112,7 @@ const Footer = () => {
             {/* Navegación + Legal */}
             {footerSections.map(({ title, links }, index) => (
               <div key={index} className="col-span-2">
-                <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+                <div className="flex flex-col gap-4 ">
                   <p className="text-base font-medium text-foreground">{title}</p>
                   <ul className="flex flex-col gap-3">
                     {links.map(({ title, href }) => (
@@ -129,7 +129,7 @@ const Footer = () => {
 
             {/* Contacto */}
             <div className="col-span-3">
-              <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+              <div className="flex flex-col gap-4 ">
                 <p className="text-base font-medium text-foreground">Contacto</p>
                 <ul className="flex flex-col gap-3">
                   <li>
@@ -155,7 +155,7 @@ const Footer = () => {
 
           <Separator orientation="horizontal" />
 
-          <p className="text-sm font-normal text-muted-foreground text-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+          <p className="text-sm font-normal text-muted-foreground text-center ">
             © 2026 GOxT SPA. Todos los derechos reservados.
           </p>
         </div>

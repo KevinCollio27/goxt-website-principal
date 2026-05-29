@@ -19,15 +19,6 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
     {
-        quote: "Antes coordinábamos toda nuestra operación logística y comercial entre Excel y grupos de WhatsApp. Hoy tenemos trazabilidad completa, cotizaciones en minutos y el equipo trabajando desde un solo lugar.",
-        author: "Rodrigo Valdés",
-        role: "CEO · CamionGO",
-        image: "/assets/testimonios/Rodrigo.png",
-        logoSrc: "/assets/clientes/CamionGO.png",
-        logoAlt: "CamionGO",
-        logoDark: "/assets/clientes/CamionGO White.png",
-    },
-    {
         quote: "Teníamos la operación dispersa entre correos, llamadas y documentos sueltos. Hoy gestionamos requerimientos, servicios y finanzas desde una sola plataforma. El cambio fue inmediato.",
         author: "Miguel Astargo",
         role: "Jefe de Operaciones · Sigdo Koppers",
@@ -133,8 +124,8 @@ export default function Testimonials() {
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselPrevious className="-top-20 left-auto right-12 size-8 cursor-pointer" />
-                        <CarouselNext className="-top-20 right-0 size-8 cursor-pointer" />
+                        {/* <CarouselPrevious className="-top-20 left-auto right-12 size-8 cursor-pointer" />
+                        <CarouselNext className="-top-20 right-0 size-8 cursor-pointer" /> */}
                     </Carousel>
                 </motion.div>
             </div>
