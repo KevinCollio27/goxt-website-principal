@@ -5,13 +5,13 @@ import { Marquee } from "@/components/shadcn-space/animations/marquee";
 
 const clients = [
   { src: "/assets/clientes/Copec.svg", name: "Copec" },
-  { src: "/assets/clientes/SigdoKopers.svg", name: "Sigdo Kopers" },
-  { src: "/assets/clientes/logo-err.svg", name: "ERR Trans" },
+  { src: "/assets/clientes/SigdoKopers.svg", name: "Sigdo Kopers", darkClass: "dark:brightness-0 dark:invert" },
+  { src: "/assets/clientes/logo-err.svg", srcDark: "/assets/clientes/logo-err-white.svg", name: "ERR Trans" },
   //{ src: "/assets/clientes/Logotipo-Maule-Costa.svg", name: "SLEP Maule Costa" },
-  { src: "/assets/clientes/logo-andinos.svg", name: "Andinos" },
-  { src: "/assets/clientes/SouthConnect.svg", name: "SouthConnect" },
-  { src: "/assets/clientes/CamionGO.png", name: "CamionGO" },
-  { src: "/assets/clientes/Nodo.svg", name: "Nodo" },
+  { src: "/assets/clientes/logo-andinos.svg", srcDark: "/assets/clientes/logo-andinos-white.svg", name: "Andinos" },
+  { src: "/assets/clientes/SouthConnect.svg", srcDark: "/assets/clientes/SouthConnect-white.svg", name: "SouthConnect" },
+  { src: "/assets/clientes/CamionGO.png", srcDark: "/assets/clientes/CamionGO White.png", name: "CamionGO" },
+  { src: "/assets/clientes/Nodo.svg", name: "Nodo"},
 ];
 
 export default function BrandSlider() {
@@ -46,8 +46,16 @@ export default function BrandSlider() {
                     <img
                       src={client.src}
                       alt={client.name}
-                      className="h-8 w-auto object-contain"
+                      className={`h-8 w-auto object-contain ${client.srcDark ? "dark:hidden" : ""} ${client.darkClass ?? ""}`}
                     />
+                    {client.srcDark && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={client.srcDark}
+                        alt={client.name}
+                        className="h-8 w-auto object-contain hidden dark:block"
+                      />
+                    )}
                   </div>
                 ))}
               </Marquee>
