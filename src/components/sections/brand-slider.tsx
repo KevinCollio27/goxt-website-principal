@@ -6,7 +6,7 @@ import { Marquee } from "@/components/shadcn-space/animations/marquee";
 const clients = [
   { src: "/assets/clientes/Copec.svg", name: "Copec" },
   { src: "/assets/clientes/SigdoKopers.svg", name: "Sigdo Kopers", darkClass: "dark:brightness-0 dark:invert" },
-  { src: "/assets/clientes/logo-err.svg", srcDark: "/assets/clientes/logo-err-white.svg", name: "ERR Trans" },
+  { src: "/assets/clientes/logo-err.svg", name: "ERR Trans" },
   //{ src: "/assets/clientes/Logotipo-Maule-Costa.svg", name: "SLEP Maule Costa" },
   { src: "/assets/clientes/logo-andinos.svg", srcDark: "/assets/clientes/logo-andinos-white.svg", name: "Andinos" },
   { src: "/assets/clientes/SouthConnect.svg", srcDark: "/assets/clientes/SouthConnect-white.svg", name: "SouthConnect" },
