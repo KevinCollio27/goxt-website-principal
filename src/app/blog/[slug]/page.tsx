@@ -23,7 +23,9 @@ interface BlogPost {
 
 async function getPost(slug: string): Promise<BlogPost | null> {
   try {
-    const res = await fetch(`${BLOG_API}/${slug}`, { next: { revalidate: 60 } });
+    // Sin cache: thumbnail_url es una URL firmada de S3 que expira en 1h.
+    // Cachear la página dejaría URLs vencidas servidas hasta la próxima revalidación.
+    const res = await fetch(`${BLOG_API}/${slug}`, { cache: "no-store" });
     if (!res.ok) return null;
     const json = await res.json();
     return json.data ?? null;

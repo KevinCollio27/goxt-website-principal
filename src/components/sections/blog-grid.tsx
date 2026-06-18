@@ -17,7 +17,9 @@ interface BlogPost {
 
 async function getPosts(): Promise<BlogPost[]> {
   try {
-    const res = await fetch(BLOG_API, { next: { revalidate: 60 } });
+    // Sin cache: thumbnail_url es una URL firmada de S3 que expira en 1h.
+    // Cachear la página dejaría URLs vencidas servidas hasta la próxima revalidación.
+    const res = await fetch(BLOG_API, { cache: "no-store" });
     if (!res.ok) return [];
     const json = await res.json();
     return json.data?.posts ?? [];
