@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Marquee } from "@/components/shadcn-space/animations/marquee";
 
-const clients = [
+export const clients = [
   { src: "/assets/clientes/Copec.svg", name: "Copec" },
   { src: "/assets/clientes/SigdoKopers.svg", name: "Sigdo Kopers", darkClass: "dark:brightness-0 dark:invert" },
   { src: "/assets/clientes/logo-err.svg", name: "ERR Trans" },
