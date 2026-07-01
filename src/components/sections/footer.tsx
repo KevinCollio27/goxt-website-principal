@@ -147,6 +147,11 @@ const Footer = () => {
                       +56 9 2918 4887
                     </a>
                   </li>
+                  <li>
+                    <a href="/cargas" className="text-base font-normal text-muted-foreground hover:text-foreground">
+                      Cargas
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

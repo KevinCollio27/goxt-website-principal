@@ -24,6 +24,7 @@ export { default as FormacionSection } from "./formacion-section";
 export { default as CTASection } from "./cta-section";
 export { default as ContactSection } from "./contact-section";
 export { default as CargasHero } from "./cargas-hero";
+export { default as CargasFaq } from "./cargas-faq";
 export { default as DemoSection } from "./demo-section";
 export { default as DiagnosticoSection } from "./diagnostico-section";
 export { default as PowerSkillsPostulacion } from "./power-skills-postulacion";
