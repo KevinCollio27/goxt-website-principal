@@ -7,6 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import ShareButtons from "@/components/sections/blog-share-buttons";
+import { defaultOgImages, defaultOgImage } from "@/lib/metadata";
 
 const BLOG_API =
   "https://api-crm.goxt.io/api/blog-widget/blg_seENlOEbs58BmiwmIvQBujpz/posts";
@@ -60,13 +61,13 @@ export async function generateMetadata({
       authors: post.author?.name ? [post.author.name] : undefined,
       images: post.thumbnail_url
         ? [{ url: post.thumbnail_url, alt: post.title }]
-        : undefined,
+        : defaultOgImages,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description,
-      images: post.thumbnail_url ? [post.thumbnail_url] : undefined,
+      images: post.thumbnail_url ? [post.thumbnail_url] : [defaultOgImage.url],
     },
   };
 }

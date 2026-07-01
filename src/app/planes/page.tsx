@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/navbar";
 import { PricingSection, FormacionSection, Footer } from "@/components/sections";
+import { defaultOgImages } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Planes y Servicios",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     title: "Planes y Servicios | GOxT",
     description: "Desde setup inicial hasta desarrollo a medida. Elige cómo trabajar con GOxT según tu operación.",
     url: "https://goxt.io/planes",
+    images: defaultOgImages,
   },
 };
 

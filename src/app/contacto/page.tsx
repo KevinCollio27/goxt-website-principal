@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/navbar";
 import { ContactSection, Footer } from "@/components/sections";
+import { defaultOgImages } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     title: "Contacto | GOxT",
     description: "¿Tienes dudas o quieres saber más? Escríbenos y te respondemos en menos de 24 horas.",
     url: "https://goxt.io/contacto",
+    images: defaultOgImages,
   },
 };
 

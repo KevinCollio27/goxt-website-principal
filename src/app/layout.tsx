@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import Script from "next/script";
+import { defaultOgImages } from "@/lib/metadata";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -28,20 +29,13 @@ export const metadata: Metadata = {
     title: "GOxT — Tecnología para operaciones que escalan",
     description:
       "CRM, logística e inteligencia de negocio para empresas chilenas. Menos caos, más control.",
-    images: [
-      {
-        url: "/assets/logo_goxt_blanco.png",
-        width: 1200,
-        height: 630,
-        alt: "GOxT",
-      },
-    ],
+    images: defaultOgImages,
   },
   twitter: {
     card: "summary_large_image",
     title: "GOxT — Tecnología para operaciones que escalan",
     description: "CRM, logística e inteligencia de negocio para empresas chilenas.",
-    images: ["/assets/logo_goxt_blanco.png"],
+    images: ["/assets/favicon-source.png"],
   },
   robots: {
     index: true,
@@ -58,7 +52,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "GOxT",
   url: "https://goxt.io",
-  logo: "https://goxt.io/assets/logo_goxt_blanco.png",
+  logo: "https://goxt.io/assets/favicon-source.png",
   description: "CRM, logística e inteligencia de negocio para empresas de Latinoamérica.",
   email: "contacto@goxt.io",
   areaServed: ["Chile", "Latinoamérica"],
