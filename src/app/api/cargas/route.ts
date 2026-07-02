@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { countryName } from "@/lib/geo";
 
 const BASE           = process.env.CRM_API_URL         ?? "https://api-crm.goxt.io";
 const TOKEN           = process.env.CRM_WIDGET_TOKEN     ?? "";
@@ -154,13 +155,26 @@ const PERFIL_LABELS: Record<string, string> = {
 };
 
 const TIPO_EQUIPO_LABELS: Record<string, string> = {
-  cerrado:        "Cerrado",
-  camion:         "Camión",
-  refrigerado:    "Refrigerado",
-  rampla_plana:   "Rampla Plana",
-  rampla_cerrada: "Rampla Cerrada",
-  furgonado:      "Furgonado",
-  otro:           "Otro",
+  abierto:                "Abierto",
+  batea:                  "Batea",
+  cama_baja:              "Cama baja",
+  cama_baja_cuello_cisne: "Cama baja cuello de cisne",
+  camion_y_carro:         "Camión y Carro",
+  cerrado:                "Cerrado",
+  cisterna:               "Cisterna",
+  furgon_utilitario:      "Furgón utilitario",
+  furgonado:              "Furgonado",
+  furgonado_full:         "Furgonado full",
+  granel_tolva:           "Granel / Tolva",
+  paquetera:              "Paquetera",
+  porta_contenedor:       "Porta Contenedor",
+  rampla_cerrada:         "Rampla Cerrada",
+  rampla_extensible:      "Rampla extensible",
+  rampla_plana:           "Rampla Plana",
+  refrigerado:            "Refrigerado",
+  sider_cortina:          "Sider/Cortina",
+  tracto:                 "Tracto",
+  otro:                   "Otro",
 };
 
 function buildNotes(data: any): string {
@@ -168,7 +182,7 @@ function buildNotes(data: any): string {
 
   if (data.perfil === "transportista") {
     if (data.company) lines.push(`Empresa: ${data.company}`);
-    lines.push(`Región: ${data.region}`);
+    lines.push(`Región: ${data.region} (${countryName(data.regionPais ?? "CL")})`);
     lines.push(`Camiones que opera: ${data.camiones}`);
     const equipos: string[] = (data.tipoEquipo ?? []).map((v: string) =>
       v === "otro" && data.tipoEquipoOtro ? `Otro (${data.tipoEquipoOtro})` : (TIPO_EQUIPO_LABELS[v] ?? v),
@@ -176,16 +190,16 @@ function buildNotes(data: any): string {
     lines.push(`Tipo de equipo: ${equipos.join(", ")}`);
   } else if (data.perfil === "cliente") {
     lines.push(`Empresa: ${data.companyCliente}`);
-    lines.push(`Origen: ${data.origen}`);
-    lines.push(`Destino: ${data.destino}`);
-    lines.push(`Tipo de carga: ${data.tipoCarga}`);
+    lines.push(`Origen: ${data.origen} (${countryName(data.origenPais ?? "CL")})`);
+    lines.push(`Destino: ${data.destino} (${countryName(data.destinoPais ?? "CL")})`);
+    lines.push(`Tipo de carga: ${data.tipoCarga === "Otro" && data.tipoCargaOtro ? `Otro (${data.tipoCargaOtro})` : data.tipoCarga}`);
     lines.push(`Volumen/tonelaje estimado: ${data.volumen} ${data.volumenUnidad ?? ""}`.trim());
     lines.push(`Frecuencia: ${data.frecuencia}`);
   } else if (data.perfil === "conductor") {
     lines.push(`Clase de licencia: ${data.licencia}`);
     lines.push(`Años de experiencia: ${data.experiencia}`);
     lines.push(`Busca: ${data.busca}`);
-    lines.push(`Región: ${data.regionConductor}`);
+    lines.push(`Región: ${data.regionConductor} (${countryName(data.regionConductorPais ?? "CL")})`);
   }
 
   return lines.join("\n");

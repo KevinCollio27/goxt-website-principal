@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, type UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import dynamic from "next/dynamic";
@@ -14,9 +14,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Marquee } from "@/components/shadcn-space/animations/marquee";
 import { clients } from "./brand-slider";
+import { COUNTRIES, flagEmoji, getRegionsForCountry } from "@/lib/geo";
 
 const PhoneInput = dynamic(
   () => import("@/components/ui/phone-input").then((m) => ({ default: m.PhoneInput })),
@@ -46,36 +47,39 @@ const STATS = [
   },
 ];
 
-const REGIONES = [
-  "Arica y Parinacota",
-  "Tarapacá",
-  "Antofagasta",
-  "Atacama",
-  "Coquimbo",
-  "Valparaíso",
-  "Metropolitana de Santiago",
-  "Libertador Gral. Bernardo O'Higgins",
-  "Maule",
-  "Ñuble",
-  "Biobío",
-  "La Araucanía",
-  "Los Ríos",
-  "Los Lagos",
-  "Aysén del Gral. Carlos Ibáñez del Campo",
-  "Magallanes y de la Antártica Chilena",
-];
-
 const CAMIONES_OPTS = ["1 a 5", "6 a 25", "26 a 100", "Más de 100"] as const;
 const TIPO_EQUIPO_OPTS = [
+  { value: "abierto", label: "Abierto" },
+  { value: "batea", label: "Batea" },
+  { value: "cama_baja", label: "Cama baja" },
+  { value: "cama_baja_cuello_cisne", label: "Cama baja cuello de cisne" },
+  { value: "camion_y_carro", label: "Camión y Carro" },
   { value: "cerrado", label: "Cerrado" },
-  { value: "camion", label: "Camión" },
-  { value: "refrigerado", label: "Refrigerado" },
-  { value: "rampla_plana", label: "Rampla Plana" },
-  { value: "rampla_cerrada", label: "Rampla Cerrada" },
+  { value: "cisterna", label: "Cisterna" },
+  { value: "furgon_utilitario", label: "Furgón utilitario" },
   { value: "furgonado", label: "Furgonado" },
+  { value: "furgonado_full", label: "Furgonado full" },
+  { value: "granel_tolva", label: "Granel / Tolva" },
+  { value: "paquetera", label: "Paquetera" },
+  { value: "porta_contenedor", label: "Porta Contenedor" },
+  { value: "rampla_cerrada", label: "Rampla Cerrada" },
+  { value: "rampla_extensible", label: "Rampla extensible" },
+  { value: "rampla_plana", label: "Rampla Plana" },
+  { value: "refrigerado", label: "Refrigerado" },
+  { value: "sider_cortina", label: "Sider/Cortina" },
+  { value: "tracto", label: "Tracto" },
   { value: "otro", label: "Otro" },
 ];
-const TIPO_CARGA_OPTS = ["General", "Refrigerada", "Peligrosa", "Otra"] as const;
+const TIPO_CARGA_OPTS = [
+  "Carga Peligrosa",
+  "Carga refrigerada",
+  "Carga seca",
+  "Contenedor",
+  "Ganado",
+  "Materiales de construcción",
+  "Mudanza",
+  "Otro",
+] as const;
 const VOLUMEN_UNIDAD_OPTS = ["kg/mes", "ton/mes", "pallets/mes", "viajes/mes"] as const;
 const FRECUENCIA_OPTS = ["Diario", "Semanal", "Mensual", "Eventual"] as const;
 const LICENCIA_OPTS = ["A2", "A3", "A4", "A5"] as const;
@@ -102,6 +106,7 @@ const schema = z
 
     // Transportista
     company:       z.string().optional(),
+    regionPais:    z.string().optional(),
     region:        z.string().optional(),
     camiones:      z.string().optional(),
     tipoEquipo:    z.array(z.string()).optional(),
@@ -109,18 +114,22 @@ const schema = z
 
     // Cliente
     companyCliente: z.string().optional(),
+    origenPais:     z.string().optional(),
     origen:         z.string().optional(),
+    destinoPais:    z.string().optional(),
     destino:        z.string().optional(),
     tipoCarga:      z.string().optional(),
+    tipoCargaOtro:  z.string().optional(),
     volumen:        z.string().optional(),
     volumenUnidad:  z.string().optional(),
     frecuencia:     z.string().optional(),
 
     // Conductor
-    licencia:          z.string().optional(),
-    experiencia:       z.string().optional(),
-    busca:             z.string().optional(),
-    regionConductor:   z.string().optional(),
+    licencia:              z.string().optional(),
+    experiencia:           z.string().optional(),
+    busca:                 z.string().optional(),
+    regionConductorPais:   z.string().optional(),
+    regionConductor:       z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (data.perfil === "transportista") {
@@ -136,6 +145,8 @@ const schema = z
       if (!data.origen) ctx.addIssue({ code: "custom", path: ["origen"], message: "Selecciona el origen" });
       if (!data.destino) ctx.addIssue({ code: "custom", path: ["destino"], message: "Selecciona el destino" });
       if (!data.tipoCarga) ctx.addIssue({ code: "custom", path: ["tipoCarga"], message: "Selecciona el tipo de carga" });
+      if (data.tipoCarga === "Otro" && !data.tipoCargaOtro)
+        ctx.addIssue({ code: "custom", path: ["tipoCargaOtro"], message: "Especifica el tipo de carga" });
       if (!data.volumen) ctx.addIssue({ code: "custom", path: ["volumen"], message: "Ingresa el volumen o tonelaje" });
       if (!data.frecuencia) ctx.addIssue({ code: "custom", path: ["frecuencia"], message: "Selecciona la frecuencia" });
     }
@@ -208,6 +219,120 @@ function EquipmentMultiSelect({
   );
 }
 
+function CountrySelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (code: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const selected = COUNTRIES.find((c) => c.code === value);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button type="button" variant="outline" className="w-full justify-between font-normal">
+          <span className="truncate text-left">
+            {selected ? `${flagEmoji(selected.code)} ${selected.name}` : "Selecciona un país"}
+          </span>
+          <ChevronDownIcon className="size-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-72 p-0">
+        <Command>
+          <CommandInput placeholder="Buscar país..." />
+          <CommandList>
+            <CommandEmpty>Sin resultados.</CommandEmpty>
+            <CommandGroup>
+              {COUNTRIES.map((c) => (
+                <CommandItem
+                  key={c.code}
+                  value={c.name}
+                  onSelect={() => {
+                    onChange(c.code);
+                    setOpen(false);
+                  }}
+                  className="cursor-pointer"
+                >
+                  <span className="mr-1">{flagEmoji(c.code)}</span>
+                  {c.name}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+type CountryFieldName = "regionPais" | "origenPais" | "destinoPais" | "regionConductorPais";
+type RegionFieldName = "region" | "origen" | "destino" | "regionConductor";
+
+function CountryRegionRow({
+  form,
+  countryName,
+  regionName,
+  regionLabel = "Región",
+  groupLabel,
+}: {
+  form: UseFormReturn<FormData>;
+  countryName: CountryFieldName;
+  regionName: RegionFieldName;
+  regionLabel?: string;
+  groupLabel?: string;
+}) {
+  const countryCode = form.watch(countryName) ?? "CL";
+  const regions = getRegionsForCountry(countryCode);
+
+  return (
+    <div className="flex flex-col gap-2">
+      {groupLabel && <p className="text-sm font-medium">{groupLabel}</p>}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Controller
+          control={form.control}
+          name={countryName}
+          render={({ field }) => (
+            <Field>
+              <FieldLabel>País</FieldLabel>
+              <CountrySelect
+                value={field.value ?? "CL"}
+                onChange={(code) => {
+                  field.onChange(code);
+                  form.setValue(regionName, "");
+                }}
+              />
+            </Field>
+          )}
+        />
+        <Controller
+          control={form.control}
+          name={regionName}
+          render={({ field, fieldState }) => (
+            <Field>
+              <FieldLabel>
+                {regionLabel} <span className="text-destructive">*</span>
+              </FieldLabel>
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
+                  <SelectValue placeholder={`Selecciona ${regionLabel.toLowerCase()}`} />
+                </SelectTrigger>
+                <SelectContent>
+                  {regions.map((r) => (
+                    <SelectItem key={r} value={r}>{r}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FieldError errors={[fieldState.error]} />
+            </Field>
+          )}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function CargasHero() {
   const [submitted, setSubmitted] = useState(false);
   const hasSubmitted = useRef(false);
@@ -218,9 +343,9 @@ export default function CargasHero() {
       name: "", email: "", phone: "+56",
       perfil: undefined,
       consent: undefined,
-      company: "", region: "", camiones: "", tipoEquipo: [], tipoEquipoOtro: "",
-      companyCliente: "", origen: "", destino: "", tipoCarga: "", volumen: "", volumenUnidad: "kg/mes", frecuencia: "",
-      licencia: "", experiencia: "", busca: "", regionConductor: "",
+      company: "", regionPais: "CL", region: "", camiones: "", tipoEquipo: [], tipoEquipoOtro: "",
+      companyCliente: "", origenPais: "CL", origen: "", destinoPais: "CL", destino: "", tipoCarga: "", tipoCargaOtro: "", volumen: "", volumenUnidad: "kg/mes", frecuencia: "",
+      licencia: "", experiencia: "", busca: "", regionConductorPais: "CL", regionConductor: "",
     },
   });
 
@@ -341,7 +466,7 @@ export default function CargasHero() {
                 className="flex flex-col gap-6 rounded-xl bg-muted/50 p-8 md:p-10"
               >
                 <div>
-                  <h2 className="text-xl font-semibold">¿Estas interesado en conectar con nosotros?</h2>
+                  <h2 className="text-xl font-semibold">¿Quieres potenciar el crecimiento de tu empresa?</h2>
                   <p className="text-sm text-muted-foreground">Respondemos en menos de 24 horas</p>
                 </div>
 
@@ -441,27 +566,11 @@ export default function CargasHero() {
                           </Field>
                         )}
                       />
-                      <Controller
-                        control={form.control}
-                        name="region"
-                        render={({ field, fieldState }) => (
-                          <Field>
-                            <FieldLabel>
-                              Región donde operas <span className="text-destructive">*</span>
-                            </FieldLabel>
-                            <Select value={field.value} onValueChange={field.onChange}>
-                              <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
-                                <SelectValue placeholder="Selecciona una región" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {REGIONES.map((r) => (
-                                  <SelectItem key={r} value={r}>{r}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FieldError errors={[fieldState.error]} />
-                          </Field>
-                        )}
+                      <CountryRegionRow
+                        form={form}
+                        countryName="regionPais"
+                        regionName="region"
+                        regionLabel="Región donde operas"
                       />
                       <Controller
                         control={form.control}
@@ -535,57 +644,25 @@ export default function CargasHero() {
                             <FieldLabel htmlFor="companyCliente">
                               Empresa <span className="text-destructive">*</span>
                             </FieldLabel>
-                            <Input {...field} id="companyCliente" aria-invalid={fieldState.invalid} />
+                            <Input {...field} id="companyCliente" aria-invalid={fieldState.invalid} placeholder="Ej: GOxT SpA" />
                             <FieldError errors={[fieldState.error]} />
                           </Field>
                         )}
                       />
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <Controller
-                          control={form.control}
-                          name="origen"
-                          render={({ field, fieldState }) => (
-                            <Field>
-                              <FieldLabel>
-                                Origen <span className="text-destructive">*</span>
-                              </FieldLabel>
-                              <Select value={field.value} onValueChange={field.onChange}>
-                                <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
-                                  <SelectValue placeholder="Región/comuna" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {REGIONES.map((r) => (
-                                    <SelectItem key={r} value={r}>{r}</SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FieldError errors={[fieldState.error]} />
-                            </Field>
-                          )}
-                        />
-                        <Controller
-                          control={form.control}
-                          name="destino"
-                          render={({ field, fieldState }) => (
-                            <Field>
-                              <FieldLabel>
-                                Destino <span className="text-destructive">*</span>
-                              </FieldLabel>
-                              <Select value={field.value} onValueChange={field.onChange}>
-                                <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
-                                  <SelectValue placeholder="Región/comuna" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {REGIONES.map((r) => (
-                                    <SelectItem key={r} value={r}>{r}</SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FieldError errors={[fieldState.error]} />
-                            </Field>
-                          )}
-                        />
-                      </div>
+                      <CountryRegionRow
+                        form={form}
+                        countryName="origenPais"
+                        regionName="origen"
+                        regionLabel="Región/estado"
+                        groupLabel="Origen"
+                      />
+                      <CountryRegionRow
+                        form={form}
+                        countryName="destinoPais"
+                        regionName="destino"
+                        regionLabel="Región/estado"
+                        groupLabel="Destino"
+                      />
                       <Controller
                         control={form.control}
                         name="tipoCarga"
@@ -608,6 +685,26 @@ export default function CargasHero() {
                           </Field>
                         )}
                       />
+                      {form.watch("tipoCarga") === "Otro" && (
+                        <Controller
+                          control={form.control}
+                          name="tipoCargaOtro"
+                          render={({ field, fieldState }) => (
+                            <Field>
+                              <FieldLabel htmlFor="tipoCargaOtro">
+                                Especifica el tipo de carga <span className="text-destructive">*</span>
+                              </FieldLabel>
+                              <Input
+                                {...field}
+                                id="tipoCargaOtro"
+                                aria-invalid={fieldState.invalid}
+                                placeholder="Ej: Maquinaria industrial"
+                              />
+                              <FieldError errors={[fieldState.error]} />
+                            </Field>
+                          )}
+                        />
+                      )}
                       <Controller
                         control={form.control}
                         name="volumen"
@@ -747,27 +844,11 @@ export default function CargasHero() {
                           </Field>
                         )}
                       />
-                      <Controller
-                        control={form.control}
-                        name="regionConductor"
-                        render={({ field, fieldState }) => (
-                          <Field>
-                            <FieldLabel>
-                              Región donde buscas trabajo <span className="text-destructive">*</span>
-                            </FieldLabel>
-                            <Select value={field.value} onValueChange={field.onChange}>
-                              <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
-                                <SelectValue placeholder="Selecciona una región" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {REGIONES.map((r) => (
-                                  <SelectItem key={r} value={r}>{r}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FieldError errors={[fieldState.error]} />
-                          </Field>
-                        )}
+                      <CountryRegionRow
+                        form={form}
+                        countryName="regionConductorPais"
+                        regionName="regionConductor"
+                        regionLabel="Región donde buscas trabajo"
                       />
                     </>
                   )}
