@@ -35,29 +35,14 @@ const plataformas: Plataforma[] = [
   },
   {
     badge: "Más Usado",
-    name: "TMS GONetwork",
-    description: "La red que conecta transportistas y generadores de carga en tiempo real.",
-    features: [
-      "Red colaborativa de transporte",
-      "Visibilidad total de tu flota",
-      "Gestión de despachos en tiempo real",
-      "Trazabilidad de carga completa",
-    ],
-    featured: true,
-    comingSoon: false,
-    href: "https://network.goxt.io",
-  },
-  {
-    badge: "TMS",
     name: "TMS Cargo",
     description: "Software especializado para dadores de carga.",
     features: [
       "Digitalización del proceso logístico",
       "Control de contratos de transporte",
       "Seguimiento de despachos",
-      "Integrado con GONetwork",
     ],
-    featured: false,
+    featured: true,
     comingSoon: false,
     href: "https://cargo.goxt.io",
   },
@@ -91,7 +76,7 @@ export default function PlataformasSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch max-w-4xl mx-auto">
           {plataformas.map((plan, i) => (
             <motion.div
               key={plan.name}
