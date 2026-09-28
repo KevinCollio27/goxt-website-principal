@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/navbar";
-import { HeroSection, BrandSlider, PainPoints, FeaturesSection, Testimonials, CTASection, Footer } from "@/components/sections";
+import { HeroSection, PainPoints, FeaturesSection, Testimonials, CTASection, Footer } from "@/components/sections";
 import { defaultOgImages } from "@/lib/metadata";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
-        <BrandSlider />
+        {/* <BrandSlider /> */}
         <PainPoints />
         <FeaturesSection />
         <Testimonials />
